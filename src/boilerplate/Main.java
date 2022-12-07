@@ -1,5 +1,5 @@
 
-package day6;
+package boilerplate;
 
 import java.io.File;
 import java.io.IOException;
