@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 public class Main {
 
@@ -24,7 +21,7 @@ public class Main {
                 allBags.add(sum);
                 sum = 0;
             } else {
-               sum += Integer.parseInt(currentLine);
+                sum += Integer.parseInt(currentLine);
             }
         }
         allBags.add(sum);
@@ -38,12 +35,12 @@ public class Main {
     }
 
     private static int solve1(List<Integer> input) {
-        return input.get(input.size()-1);
+        return input.get(input.size() - 1);
     }
 
     private static int solve2(List<Integer> input) {
         int size = input.size();
         //System.out.println(input);
-        return input.get(size -1)+input.get(size -2)+input.get(size -3);
+        return input.get(size - 1) + input.get(size - 2) + input.get(size - 3);
     }
 }

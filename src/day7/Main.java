@@ -1,4 +1,3 @@
-
 package day7;
 
 import java.io.File;
@@ -52,13 +51,13 @@ public class Main {
 
     private static int solve2(Directory input) {
         int usedDiskSpace = input.sizeOfChildren;
-        int freeDiskSpace = totalDiskSpace-usedDiskSpace;
-        if(neededFreeDiskSpace < freeDiskSpace){
+        int freeDiskSpace = totalDiskSpace - usedDiskSpace;
+        if (neededFreeDiskSpace < freeDiskSpace) {
             System.out.println("Already enough space!");
             return 0;
         }
 
-        return input.findSmallestDirGreaterThan(neededFreeDiskSpace-freeDiskSpace, null).sizeOfChildren;
+        return input.findSmallestDirGreaterThan(neededFreeDiskSpace - freeDiskSpace, null).sizeOfChildren;
     }
 
     private static class Directory {
@@ -67,7 +66,7 @@ public class Main {
         List<Directory> childDirectories;
         List<Main.MyFile> childFiles;
 
-        int sizeOfChildren=0;
+        int sizeOfChildren = 0;
 
         String name;
 
@@ -95,46 +94,46 @@ public class Main {
             throw new InputMismatchException("Did not find Directory " + dirName);
         }
 
-        public int calculateSizeOfChildrenRecursive(int currentSize){
-            if(this.sizeOfChildren==0){
+        public int calculateSizeOfChildrenRecursive(int currentSize) {
+            if (this.sizeOfChildren == 0) {
                 int size = 0;
-                for(MyFile f : this.childFiles){
-                    size+= f.size;
+                for (MyFile f : this.childFiles) {
+                    size += f.size;
                 }
-                for(Directory d: this.childDirectories) {
-                     size = d.calculateSizeOfChildrenRecursive(size);
+                for (Directory d : this.childDirectories) {
+                    size = d.calculateSizeOfChildrenRecursive(size);
                 }
                 this.sizeOfChildren = size;
             }
             return currentSize + sizeOfChildren;
         }
 
-        public int findAllDirSmallerThan(int maxSize, int currentSizeSum){
-            for(Directory d : this.childDirectories){
+        public int findAllDirSmallerThan(int maxSize, int currentSizeSum) {
+            for (Directory d : this.childDirectories) {
                 currentSizeSum = d.findAllDirSmallerThan(maxSize, currentSizeSum);
             }
-            if(this.sizeOfChildren < maxSize){
-                currentSizeSum+= this.sizeOfChildren;
+            if (this.sizeOfChildren < maxSize) {
+                currentSizeSum += this.sizeOfChildren;
             }
             return currentSizeSum;
         }
 
-        public Directory findSmallestDirGreaterThan(int minSize, Directory currentSmallest){
-            if(currentSmallest == null || this.sizeOfChildren > minSize && this.sizeOfChildren < currentSmallest.sizeOfChildren){
+        public Directory findSmallestDirGreaterThan(int minSize, Directory currentSmallest) {
+            if (currentSmallest == null || this.sizeOfChildren > minSize && this.sizeOfChildren < currentSmallest.sizeOfChildren) {
                 currentSmallest = this;
             }
-            for(Directory d : this.childDirectories){
-               currentSmallest = d.findSmallestDirGreaterThan(minSize, currentSmallest);
+            for (Directory d : this.childDirectories) {
+                currentSmallest = d.findSmallestDirGreaterThan(minSize, currentSmallest);
             }
             return currentSmallest;
         }
 
-        public void print(int level){
-            for(int i = 0; i < level; i++){
+        public void print(int level) {
+            for (int i = 0; i < level; i++) {
                 System.out.print("  ");
             }
             System.out.println(this.name + " : " + this.sizeOfChildren);
-            for (Directory d : this.childDirectories){
+            for (Directory d : this.childDirectories) {
                 d.print(level + 1);
             }
         }

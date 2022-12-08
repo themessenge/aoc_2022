@@ -3,10 +3,7 @@ package day2;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -20,16 +17,26 @@ public class Main {
             String currentLine = scanner.nextLine();
             String oppString = currentLine.split(" ")[0];
             String meString = currentLine.split(" ")[1];
-            int opp,me;
-            switch (oppString){
-                case "A" : opp = 1; break;
-                case "B" : opp = 2; break;
-                default: opp = 3;
+            int opp, me;
+            switch (oppString) {
+                case "A":
+                    opp = 1;
+                    break;
+                case "B":
+                    opp = 2;
+                    break;
+                default:
+                    opp = 3;
             }
-            switch (meString){
-                case "X" : me = 1; break;
-                case "Y" : me = 2; break;
-                default: me = 3;
+            switch (meString) {
+                case "X":
+                    me = 1;
+                    break;
+                case "Y":
+                    me = 2;
+                    break;
+                default:
+                    me = 3;
             }
             allInput.add(new RPS(opp, me));
         }
@@ -43,59 +50,59 @@ public class Main {
 
     private static int solve1(List<RPS> input) {
         int sum = 0;
-        for(RPS game : input){
-            sum+=game.computeResult();
+        for (RPS game : input) {
+            sum += game.computeResult();
         }
         return sum;
     }
 
     private static int solve2(List<RPS> input) {
         int sum = 0;
-        for(RPS game : input){
-            sum+=game.computeStrategy();
+        for (RPS game : input) {
+            sum += game.computeStrategy();
         }
         return sum;
     }
 
-    private static class RPS{
+    private static class RPS {
         int opp;
         int me;
 
-        public RPS(int myOpp, int myMe){
+        public RPS(int myOpp, int myMe) {
             this.opp = myOpp;
             this.me = myMe;
         }
 
-        public int computeResult(){
-            if(opp==1 && me==2 || opp==2&&me==3 || opp==3&&me==1){
+        public int computeResult() {
+            if (opp == 1 && me == 2 || opp == 2 && me == 3 || opp == 3 && me == 1) {
                 return 6 + me;
-            } else if (opp==me){
+            } else if (opp == me) {
                 return 3 + me;
             } else {
                 return me;
             }
         }
 
-        public int computeStrategy(){
-            int sum=0;
-            if(me == 2){ //Draw
-               sum += opp + 3;
-            } else if(me == 1) { //lose
-                if(opp == 1){
+        public int computeStrategy() {
+            int sum = 0;
+            if (me == 2) { //Draw
+                sum += opp + 3;
+            } else if (me == 1) { //lose
+                if (opp == 1) {
                     sum += 3;
-                } else if (opp == 2){
-                    sum+= 1;
+                } else if (opp == 2) {
+                    sum += 1;
                 } else {
-                    sum+= 2;
+                    sum += 2;
                 }
             } else {// win
-                sum+=6;
-                if(opp == 1){
-                    sum+= 2;
-                } else if (opp == 2){
-                    sum+= 3;
+                sum += 6;
+                if (opp == 1) {
+                    sum += 2;
+                } else if (opp == 2) {
+                    sum += 3;
                 } else {
-                    sum+= 1;
+                    sum += 1;
                 }
             }
             return sum;

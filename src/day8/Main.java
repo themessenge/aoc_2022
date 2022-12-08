@@ -1,4 +1,3 @@
-
 package day8;
 
 import java.io.File;
@@ -10,7 +9,7 @@ import static java.lang.Math.max;
 
 public class Main {
 
-    private static  int[][] inputs;
+    private static int[][] inputs;
     private static int xLength, yLength;
 
     public static void main(String[] args) throws IOException {
@@ -31,8 +30,8 @@ public class Main {
         }
         scanner.close();
         print(inputs);
-        yLength= inputs.length;
-        xLength=inputs[0].length;
+        yLength = inputs.length;
+        xLength = inputs[0].length;
 
         int result1 = solve1();
         System.out.println("Result 1:" + result1);
@@ -43,8 +42,8 @@ public class Main {
     private static int solve1() {
         int[][] visible = new int[yLength][xLength];
         int count = 0;
-        for(int i= 0; i < inputs.length; i++){
-            for(int j =0; j < inputs[0].length; j++) {
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[0].length; j++) {
                 int vis = isVisible(i, j, inputs[i][j]);
                 count += vis;
                 visible[i][j] = vis;
@@ -57,10 +56,10 @@ public class Main {
     private static int solve2() {
         int[][] scenics = new int[yLength][xLength];
         int maxVis = 0;
-        for(int i= 0; i < inputs.length; i++){
-            for(int j =0; j < inputs[0].length; j++) {
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[0].length; j++) {
                 int vis = computeScenics(i, j, inputs[i][j]);
-                maxVis  = max(vis, maxVis);
+                maxVis = max(vis, maxVis);
                 scenics[i][j] = vis;
             }
         }
@@ -68,23 +67,23 @@ public class Main {
         return maxVis;
     }
 
-    private static int isVisible(int yCoord, int xCoord, int height){
-        if(xCoord == 0 || yCoord == 0 || xCoord == xLength-1  || yCoord==yLength-1){
+    private static int isVisible(int yCoord, int xCoord, int height) {
+        if (xCoord == 0 || yCoord == 0 || xCoord == xLength - 1 || yCoord == yLength - 1) {
             return 1;
         }
         boolean top = true;
         boolean bottom = true;
         boolean left = true;
         boolean right = true;
-        for(int i = 0; i < inputs.length; i++){
-            for(int j =0; j < inputs[0].length; j++) {
-                if(i == yCoord && j < xCoord){
+        for (int i = 0; i < inputs.length; i++) {
+            for (int j = 0; j < inputs[0].length; j++) {
+                if (i == yCoord && j < xCoord) {
                     left &= inputs[i][j] < height;
-                } else if (i == yCoord && j > xCoord){
+                } else if (i == yCoord && j > xCoord) {
                     right &= inputs[i][j] < height;
-                } else if(j == xCoord && i < yCoord){
+                } else if (j == xCoord && i < yCoord) {
                     top &= inputs[i][j] < height;
-                } else if(j == xCoord && i > yCoord){
+                } else if (j == xCoord && i > yCoord) {
                     bottom &= inputs[i][j] < height;
                 }
             }
@@ -93,7 +92,7 @@ public class Main {
     }
 
     private static int computeScenics(int yCoord, int xCoord, int height) {
-        if(xCoord == 0 || yCoord == 0 || xCoord == xLength-1  || yCoord==yLength-1){
+        if (xCoord == 0 || yCoord == 0 || xCoord == xLength - 1 || yCoord == yLength - 1) {
             return 0;
         }
         boolean topBlocked = false;
@@ -104,7 +103,7 @@ public class Main {
         int bottom = 0;
         int left = 0;
         int right = 0;
-        for(int i = yCoord - 1; i >= 0; i--) {
+        for (int i = yCoord - 1; i >= 0; i--) {
             boolean topLeftBigger = inputs[i][xCoord] >= height;
             if (!topBlocked) {
                 topBlocked = topLeftBigger;
@@ -115,9 +114,9 @@ public class Main {
                 left += leftBlocked ? 0 : 1;
             }
         }
-        for(int i = yCoord + 1; i < yLength; i++) {
+        for (int i = yCoord + 1; i < yLength; i++) {
             boolean bottomRightBigger = inputs[yCoord][i] >= height;
-            if (!bottomBlocked){
+            if (!bottomBlocked) {
                 bottomBlocked = bottomRightBigger;
                 bottom += bottomBlocked ? 0 : 1;
             }
@@ -133,7 +132,7 @@ public class Main {
         return top * bottom * left * right;
     }
 
-    private static void print(int[][] inputs){
+    private static void print(int[][] inputs) {
         for (int[] input : inputs) {
             for (int j = 0; j < inputs[0].length; j++) {
                 System.out.print(input[j] + " ");
