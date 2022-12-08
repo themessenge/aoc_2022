@@ -21,16 +21,16 @@ public class Main {
             String oppString = currentLine.split(" ")[0];
             String meString = currentLine.split(" ")[1];
             int opp,me;
-            opp = switch (oppString) {
-                case "A" -> 1;
-                case "B" -> 2;
-                default -> 3;
-            };
-            me = switch (meString) {
-                case "X" -> 1;
-                case "Y" -> 2;
-                default -> 3;
-            };
+            switch (oppString){
+                case "A" : opp = 1; break;
+                case "B" : opp = 2; break;
+                default: opp = 3;
+            }
+            switch (meString){
+                case "X" : me = 1; break;
+                case "Y" : me = 2; break;
+                default: me = 3;
+            }
             allInput.add(new RPS(opp, me));
         }
         scanner.close();
